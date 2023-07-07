@@ -23,8 +23,8 @@ create table proyectoFinal.categoria (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
-create table proyectoFinal.carro (
-  id_carro INT NOT NULL AUTO_INCREMENT,
+create table proyectoFinal.producto (
+  id_producto INT NOT NULL AUTO_INCREMENT,
   id_categoria INT NOT NULL,
   marca VARCHAR(50) NOT NULL,
   modelo VARCHAR(50) NOT NULL,
@@ -35,8 +35,8 @@ create table proyectoFinal.carro (
   precio double, 
   ruta_imagen varchar(1024),
   activo bool,
-  PRIMARY KEY (id_carro),
-  foreign key fk_carro_categoria (id_categoria) references categoria(id_categoria)  
+  PRIMARY KEY (id_producto),
+  foreign key fk_producto_categoria (id_categoria) references categoria(id_categoria)  
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
