@@ -1,10 +1,10 @@
 package com.proyectofinal.dao;
 
 
-import com.proyectofinal.Controller.ProductoController;
+import com.proyectofinal.domain.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductoDao 
-        extends JpaRepository <ProductoController, Long>{
+        extends JpaRepository <Producto, Long>{
     
 }
