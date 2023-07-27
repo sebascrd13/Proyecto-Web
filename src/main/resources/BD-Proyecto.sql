@@ -23,6 +23,9 @@ create table proyectoFinal.categoria (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
+insert into proyectoFinal.categoria(id_categoria, descripcion, activo)
+values(1, '4x4', true);
+
 create table proyectoFinal.producto (
   id_producto INT NOT NULL AUTO_INCREMENT,
   id_categoria INT NOT NULL,
@@ -31,7 +34,7 @@ create table proyectoFinal.producto (
   año int,
   combustible VARCHAR(50) NOT NULL,
   transmision VARCHAR(50) NOT NULL,
-  clindrada VARCHAR(50) NOT NULL,
+  cilindrada VARCHAR(50) NOT NULL,
   precio double, 
   ruta_imagen varchar(1024),
   activo bool,
@@ -67,7 +70,4 @@ create table proyectoFinal.rol (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
-
-
-
-
+select*from categoria;
