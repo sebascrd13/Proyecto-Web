@@ -23,7 +23,7 @@
             </div>
         </section>
 
-         2 Fragmento para agregar producto, es la ventana modal 
+        2 Fragmento para agregar producto, es la ventana modal 
         <section th:fragment="agregarProducto">
             <div id="agregarProducto" 
                  class="modal fade" 
@@ -99,7 +99,7 @@
             </div>
         </section>
 
-         3 Sección principal para mostrar la informaccion de la entidad producto 
+        3 Sección principal para mostrar la informaccion de la entidad producto 
         <section th:fragment="listadoProductos" id="productos">
             <div class="container">
                 <div class="row">
@@ -112,7 +112,8 @@
                                 <table class="table table-striped table-hover">
                                     <thead class="table-dark">
                                         <tr><th>#</th>
-                                            <th>[[#{producto.descripcion}]]</th>
+                                            <th>Marca</th>
+                                            <th>Modelo</th>
                                             <th class="text-center">[[#{producto.precio}]]</th>
                                             <th class="text-center">[[#{producto.activo}]]</th>
                                             <th></th></tr>
@@ -121,7 +122,8 @@
                                         <tr th:each="producto, contador : ${productos}">
                                             <td>[[${contador.count}]]</td>
                                             <td>[[${producto.marca}]]</td>
-                                            <td class="text-center">[[${#numbers.formatDecimal(producto.precio,1,'DEFAULT',2,'DEFAULT')}]]</td>
+                                            <td>[[${producto.modelo}]]</td>
+                                            <td class="text-center">[[${#numbers.formatDecimal(producto.precio,1,'DEFAULT',2,'DEFAULT')}+' $']]</td>
                                             <td class="text-center" th:text="${producto.activo} ? 'Activa' : 'Inactiva'" />
                                             <td><a th:href="@{/producto/eliminar/}+${producto.idProducto}"
                                                    class="btn btn-danger">
@@ -149,7 +151,7 @@
             </div>
         </section>
 
-         4 Fragmento que se utiliza en la página modifca.html 
+        4 Fragmento que se utiliza en la página modifca.html 
         <section th:fragment="editarProducto">
             <div class="row">
                 <div class="col-md-2"></div>
@@ -183,36 +185,41 @@
                                                     </select>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="descripcion">[[#{producto.descripcion}]]</label>
-                                                    <input type="text" class="form-control" 
-                                                           name="descripcion" th:field="*{descripcion}"
-                                                           required="true">
+                                                    <label for="marca">Marca</label>
+                                                    <input type="text" class="form-control" name="Marca" required="true"/>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="detalle">[[#{producto.detalle}]]</label>
-                                                    <input type="text" class="form-control" th:field="*{detalle}" required="true"/>
+                                                    <label for="modelo">Modelo</label>
+                                                    <input type="text" class="form-control" name="Modelo" required="true"/>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="precio">[[#{producto.precio}]]</label>
-                                                    <input type="number" class="form-control" th:field="*{precio}" required="true"/>
+                                                    <label for="año">Año</label>
+                                                    <input type="number" class="form-control" name="año" required="true"/>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="existencias">[[#{producto.existencias}]]</label>
-                                                    <input type="number" class="form-control" th:field="*{existencias}" required="true"/>
+                                                    <label for="combustible">combustible</label>
+                                                    <input type="text" class="form-control" name="Combustible" required="true"/>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="activo">[[#{producto.activo}]]</label>
-                                                    <input class="form-check-input" 
-                                                           type="checkbox" 
-                                                           name="activo" 
-                                                           id="activo"
-                                                           th:field="*{activo}">
+                                                    <label for="transmision">Transmision</label>
+                                                    <input type="text" class="form-control" name="Transmision" required="true"/>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="imagen">[[#{producto.rutaImagen}]]</label>
-                                                    <input class="form-control" type="file" name="imagenFile"
-                                                           onchange="readURL(this);" />
-                                                    <img id="blah" th:src="@{${producto.rutaImagen}}" alt="your image" height="200"/>
+                                                    <label for="cilindrada">Cilindrada</label>
+                                                    <input type="text" class="form-control" name="Cilindrada" required="true"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="precio">Precio</label>
+                                                    <input type="number" class="form-control" name="Precio" required="true"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="activo">Estado</label>
+                                                    <input class="form-check-input" type="checkbox" name="activo" id="activo"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="imagen">[[#{producto.imagen}]]</label>
+                                                    <input class="form-control" type="file" name="imagenFile" onchange="readURL(this);"/>
+                                                    <img id="blah" src="#" alt="your image" height="200"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -224,7 +231,7 @@
             </div>
         </section>
 
-         5 Fragmento que se utiliza en el fragmento anterior 
+        5 Fragmento que se utiliza en el fragmento anterior 
         <section th:fragment="botonesEditar">
             <div class="container py-4 mb-4 bg-light">
                 <div class="row">

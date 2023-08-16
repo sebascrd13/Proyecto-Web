@@ -21,6 +21,7 @@ public class Item extends Producto{
         super.setCilindrada(producto.getCilindrada());
         super.setPrecio(producto.getPrecio());
         super.setActivo(producto.isActivo());
+        super.setExistencias(producto.getExistencias());
         super.setRutaImagen(producto.getRutaImagen());
         this.cantidad = 0;
         

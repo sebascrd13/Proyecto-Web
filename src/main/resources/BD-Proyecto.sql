@@ -24,7 +24,10 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
 insert into proyectoFinal.categoria(id_categoria, descripcion, activo)
-values(1, '4x4', true);
+values(1, 'SUV', true),
+(2, 'Sedán', true),
+(3, 'Pick-Up', true),
+(4, 'Deportivo', true);
 
 create table proyectoFinal.producto (
   id_producto INT NOT NULL AUTO_INCREMENT,
@@ -37,6 +40,7 @@ create table proyectoFinal.producto (
   cilindrada VARCHAR(50) NOT NULL,
   precio double, 
   ruta_imagen varchar(1024),
+  existencias int,
   activo bool,
   PRIMARY KEY (id_producto),
   foreign key fk_producto_categoria (id_categoria) references categoria(id_categoria)  
@@ -45,8 +49,12 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
 insert into proyectoFinal.producto(id_producto, id_categoria, marca, modelo, año, combustible, transmision,
-cilindrada, precio, activo)
-values(1, 1, 'Nissan', 'Frontier', '2021', 'Diesel', 'Automática', '2500cc', 40000, true);
+cilindrada, precio, ruta_imagen, existencias, activo)
+values(1, 3, 'Nissan', 'Frontier', '2021', 'Diesel', 'Automática', '2500cc', 40000, 'https://automotiva.com.ar/wp-content/uploads/2020/11/Nissan_Frontier_2021-5.jpg', 1, true),
+(2, 1, 'Toyota', 'Prado', '2020', 'Diesel', 'Automática', '3000cc', 60000, 'https://kelwaysvillage.com/wp-content/uploads/2019/11/25-The-Toyota-Prado-2020-Model-Price-for-Toyota-Prado-2020-Model.jpg', 1, true),
+(3, 2, 'Hyundai', 'Elantra', '2018', 'Gasolina', 'Manual', '1800cc', 30000, 'https://www.autodetective.com/uploads/photos/hyundai/elantra/2018/1662647.jpg', 1, true),
+(4, 4, 'Audi', 'R8', '2022', 'Gasolina', 'Automática', '5000cc', 150000, 'https://cdn.carbuzz.com/gallery-images/2022-audi-r8-coupe-carbuzz-803897-1600.jpg', 1, true),
+(5, 1, 'Toyota', 'Tacoma', '2021', 'Automática', '3500cc', '80000', 'https://th.bing.com/th/id/R.1307f5e42c211200a6576a33b11229af?rik=dnDJzdnNUDZuDA&pid=ImgRaw&r=0', 1, true);
 
 /*Se crea la tabla de usuarios llamada usuario... igual que la clase Usuario*/
 CREATE TABLE proyectoFinal.usuario (
@@ -74,6 +82,31 @@ create table proyectoFinal.rol (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
+create table proyectofinal.factura (
+  id_factura INT NOT NULL AUTO_INCREMENT,
+  id_usuario INT NOT NULL,
+  fecha date,  
+  total double,
+  estado int,
+  PRIMARY KEY (id_factura),
+  foreign key fk_factura_usuario (id_usuario) references usuario(id_usuario)  
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+create table proyectofinal.venta (
+  id_venta INT NOT NULL AUTO_INCREMENT,
+  id_factura INT NOT NULL,
+  id_producto INT NOT NULL,
+  precio double, 
+  cantidad int,
+  PRIMARY KEY (id_venta),
+  foreign key fk_venta_factura (id_factura) references factura(id_factura),
+  foreign key fk_venta_producto (id_producto) references producto(id_producto) 
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
 INSERT INTO proyectoFinal.usuario (id_usuario, username,password,nombre, apellidos, correo, telefono,ruta_imagen,activo) VALUES 
 (1,'juan','$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.','Juan', 'Castro Mora',    'jcastro@gmail.com',    '4556-8978', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Juan_Diego_Madrigal.jpg/250px-Juan_Diego_Madrigal.jpg',true),
 (2,'rebeca','$2a$10$GkEj.ZzmQa/aEfDmtLIh3udIH5fMphx/35d0EYeqZL5uzgCJ0lQRi','Rebeca',  'Contreras Mora', 'acontreras@gmail.com', '5456-8789','https://upload.wikimedia.org/wikipedia/commons/0/06/Photo_of_Rebeca_Arthur.jpg',true),
@@ -84,4 +117,4 @@ insert into proyectoFinal.rol (id_rol, nombre, id_usuario) values
  (4,'ROLE_VENDEDOR',2), (5,'ROLE_USER',2),
  (6,'ROLE_USER',3);
  
-select*from categoria;
+select*from producto;

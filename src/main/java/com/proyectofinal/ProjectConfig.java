@@ -8,11 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -27,8 +24,8 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
  */
 @Configuration
 public class ProjectConfig implements WebMvcConfigurer {
-    
-    
+
+
     @Bean
     public LocaleResolver localeResolver() {
         var slr = new SessionLocaleResolver();
@@ -39,19 +36,19 @@ public class ProjectConfig implements WebMvcConfigurer {
                 "session.current.timezone");
         return slr;
     }
-    
+
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         var lci = new LocaleChangeInterceptor();
         lci.setParamName("lang");
         return lci;
     }
-    
+
     @Override
     public void addInterceptors(InterceptorRegistry registro) {
         registro.addInterceptor(localeChangeInterceptor());
     }
-    
+
     @Bean("messageSource")
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = 
@@ -61,7 +58,6 @@ public class ProjectConfig implements WebMvcConfigurer {
         return messageSource;
     }
     
-    /* Los siguiente métodos son para implementar el tema de seguridad dentro del proyecto */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
@@ -100,26 +96,28 @@ public class ProjectConfig implements WebMvcConfigurer {
                 .logout((logout) -> logout.permitAll());
         return http.build();
     }
-    
-     @Bean
-    public UserDetailsService users() {
-        UserDetails admin = User.builder()
-                .username("juan")
-                .password("{noop}123")
-                .roles("USER", "VENDEDOR", "ADMIN")
-                .build();
-        UserDetails sales = User.builder()
-                .username("rebeca")
-                .password("{noop}456")
-                .roles("USER", "VENDEDOR")
-                .build();
-        UserDetails user = User.builder()
-                .username("pedro")
-                .password("{noop}789")
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user, sales, admin);
-    }
+
+/* El siguiente método se utiliza para completar la clase no es 
+    realmente funcional, la próxima semana se reemplaza con usuarios de BD */    
+//    @Bean
+//    public UserDetailsService users() {
+//        UserDetails admin = User.builder()
+//                .username("juan")
+//                .password("{noop}123")
+//                .roles("USER", "VENDEDOR", "ADMIN")
+//                .build();
+//        UserDetails sales = User.builder()
+//                .username("rebeca")
+//                .password("{noop}456")
+//                .roles("USER", "VENDEDOR")
+//                .build();
+//        UserDetails user = User.builder()
+//                .username("pedro")
+//                .password("{noop}789")
+//                .roles("USER")
+//                .build();
+//        return new InMemoryUserDetailsManager(user, sales, admin);
+//    }
     
     @Autowired
     private UserDetailsService userDetailsService;

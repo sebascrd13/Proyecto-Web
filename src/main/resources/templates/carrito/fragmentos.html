@@ -17,17 +17,14 @@
                             <h5 class="card-title">[[${producto.marca}]]</h5>
                             <figure>
                                 <img th:src="@{${producto.rutaImagen}}" height="200"/>
-                                <figcaption>[[${producto.precio}+' ('+${producto.cantidad}+')']]
+                                <figcaption>[[${producto.precio}+'$']]
                                 </figcaption>
                             </figure>
                             <form>
                                 <input type="hidden" name="texto" th:value="${producto.idProducto}"/>
-                                <input type="hidden" name="texto" th:value="${producto.cantidad}"/>
-                                <button class="btn btn-ligth" id="addCar" 
-                                        name="addCar" onclick="addCard(this.form)" 
-                                        type="button"><i class="fas fa-cart-plus"></i></button>
+                                <input type="hidden" name="texto" th:value="${producto.existencias}"/>
                             </form>
-                            <p class="card-text">[[${producto.detalle}]]</p>                            
+                            <p class="card-text">[[${producto.marca}+' '+${producto.modelo}]]</p>                            
                         </div>
                     </div>
                 </div>
@@ -47,7 +44,7 @@
             </form>
         </div>     
 
-        <section th:fragment="listadoCarrito" id="items">
+<!--        <section th:fragment="listadoCarrito" id="items">
             <div class="container">
                 <div class="row">
                     <div class="col-md-9">
@@ -124,6 +121,6 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section>-->
     </body>
 </html>
